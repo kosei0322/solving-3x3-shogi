@@ -132,6 +132,7 @@ public class Board {
 		Piece p;
 		//先手の場合
 		if(teban.equals(SENTE)) {
+			//盤上の駒を動かす手
 			for(int i = 0; i < board.length; i++) {
 				for(int j = 0; j < board[i].length; j++) {
 					if(getTebanFromType(board[i][j]).equals(SENTE)) {
@@ -150,6 +151,7 @@ public class Board {
 				System.out.println("------------------");
 			}
 		}else if(teban.equals(GOTE)) {
+			//盤上の駒を動かす手
 			for(int i = 0; i < board.length; i++) {
 				for(int j = 0; j < board[i].length; j++) {
 					if(getTebanFromType(board[i][j]).equals(GOTE)) {
@@ -163,6 +165,7 @@ public class Board {
 					}
 				}
 			}
+			
 			for(int i = 0; i < movableList.size(); i++) {
 				movableList.get(i).inputInfo();
 				System.out.println("------------------");
@@ -248,7 +251,6 @@ public class Board {
 			board[nextMove.fromRank][nextMove.fromFile] = EMPTY;
 			//駒を動かす 移動先にコマがあった場合はその駒を駒台に移動する
 			if(!board[nextMove.nextRank][nextMove.nextFile].equals(EMPTY)) {
-				System.out.println("ちんこ");
 				//先手の場合
 				if(nextMove.teban.equals(SENTE)) {
 					this.komadai.addtoSenteKomadai(board[nextMove.nextRank][nextMove.nextFile]);
@@ -261,7 +263,13 @@ public class Board {
 			board[nextMove.nextRank][nextMove.nextFile] = nextMove.type;
 		//持ち駒を使う場合	
 		}else {
-			
+			if(nextMove.teban.equals(SENTE)) {
+				board[nextMove.nextRank][nextMove.nextFile] = nextMove.type;
+				this.komadai.removeFromSenteKomadai(nextMove.type);
+			}else if(nextMove.teban.equals(GOTE)) {
+				board[nextMove.nextRank][nextMove.nextFile] = nextMove.type;
+				this.komadai.removeFromGoteMotigoma(nextMove.type);
+			}
 		}
 		
 		//手番を相手に渡す

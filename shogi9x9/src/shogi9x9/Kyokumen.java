@@ -240,8 +240,22 @@ public class Kyokumen {
 		board.moveKoma(new NextMove(E_GYOKU, 1, 2, GOTE, 1, 1));
 		
 		board.inputBoardInfo();
+		System.out.println("------------------------------------"); 
 		
+		board.moveKoma(new NextMove(GYOKU, 0, 0, SENTE, 1, 0));
 		
+		board.inputBoardInfo();
+		System.out.println("------------------------------------"); 
+		
+		board.moveKoma(new NextMove(E_GIN, 1, 1, GOTE, -1, -1));
+		
+		board.inputBoardInfo();
+		System.out.println("------------------------------------");
+		
+		board.moveKoma(new NextMove(KIN, 1, 0, SENTE, -1, -1));
+		
+		board.inputBoardInfo();
+		System.out.println("------------------------------------");
 		/*
 		 * for(int i = 0; i < 100; i++) { board = new Board(al.get(i + 10000));
 		 * System.out.println("先手玉は王手か:" + board.isChecked(SENTE));

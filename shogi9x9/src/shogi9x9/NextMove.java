@@ -1,5 +1,6 @@
 package shogi9x9;
 
+//次の一手を表現するクラス 持ち駒を使う場合はnextFile, nextRankを-1にする
 public class NextMove {
 	int nextFile, nextRank, fromFile, fromRank;
 	String teban, type;
