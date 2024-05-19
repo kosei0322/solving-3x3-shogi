@@ -218,7 +218,7 @@ public class Piece {
 			
 			if(isRange(nextFile) && isRange(nextRank)) {
 				if(isMovable[nextRank][nextFile]) {
-					NextMove nextMove = new NextMove(type, nextFile, nextRank, getTebanFromType(this.type));
+					NextMove nextMove = new NextMove(type, nextFile, nextRank, getTebanFromType(this.type), x, y);
 					movableList.add(nextMove);
 				}
 			}

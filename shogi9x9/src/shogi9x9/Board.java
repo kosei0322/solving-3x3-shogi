@@ -82,12 +82,16 @@ public class Board {
 		int countv2 = 0;
 		for(int i = 0; i < boardString.length(); i++) {
 			board[countv2][countv1] = String.valueOf(boardString.charAt(i));
+			
+			//テスト用
 			if(String.valueOf(boardString.charAt(i)).equals(E_GYOKU)) {
 				gyoku = new Piece(E_GYOKU, countv2, countv1);
 			}
 			if(String.valueOf(boardString.charAt(i)).equals(KIN)) {
 				kin = new Piece(KIN, countv2, countv1);
 			}
+			
+			
 			countv1++;
 			if(countv1 > 2) {
 				countv1 = 0;
@@ -228,6 +232,52 @@ public class Board {
 				return GOTE;
 			}else {
 				return "e";
+			}
+		}
+		
+	//駒を動かす	
+	public void moveKoma(NextMove nextMove) {
+		
+		//boardの手番とnextmoveの手番が一致しない場合はreturnする
+		if(!nextMove.teban.equals(this.teban + "")) {
+			return;
+		}
+		
+		//持ち駒の場合fromRank, fromFileは-1
+		if(isRange(nextMove.fromFile) && isRange(nextMove.fromRank)) {
+			board[nextMove.fromRank][nextMove.fromFile] = EMPTY;
+			//駒を動かす 移動先にコマがあった場合はその駒を駒台に移動する
+			if(!board[nextMove.nextRank][nextMove.nextFile].equals(EMPTY)) {
+				System.out.println("ちんこ");
+				//先手の場合
+				if(nextMove.teban.equals(SENTE)) {
+					this.komadai.addtoSenteKomadai(board[nextMove.nextRank][nextMove.nextFile]);
+				//後手の場合	
+				}else if(nextMove.teban.equals(GOTE)) {
+					this.komadai.addtoGoteKomadai(board[nextMove.nextRank][nextMove.nextFile]);
+				}
+			}
+			
+			board[nextMove.nextRank][nextMove.nextFile] = nextMove.type;
+		//持ち駒を使う場合	
+		}else {
+			
+		}
+		
+		//手番を相手に渡す
+		if((this.teban + "").equals(SENTE)) {
+			this.teban = 1;
+		}else {
+			this.teban = 0;
+		}
+	}
+	
+	//与えられた整数値xが0<= x < 3であるかどうかを確認する
+		public boolean isRange(int x) {
+			if(x >= 0 && x < 3) {
+				return true;
+			}else {
+				return false;
 			}
 		}
 	

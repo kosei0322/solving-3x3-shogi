@@ -1,13 +1,15 @@
 package shogi9x9;
 
 public class NextMove {
-	int nextFile, nextRank;
+	int nextFile, nextRank, fromFile, fromRank;
 	String teban, type;
-	public NextMove(String type, int nextFile, int nextRank, String teban) {
+	public NextMove(String type, int nextFile, int nextRank, String teban, int fromFile, int fromRank) {
 		this.teban = teban;
 		this.nextFile = nextFile;
 		this.nextRank = nextRank;
 		this.type = type;
+		this.fromFile = fromFile;
+		this.fromRank = fromRank;
 		
 	}
 	

@@ -225,7 +225,7 @@ public class Kyokumen {
 		
 		//コンソールに出力
 		Board board ;
-		for(int i = 0; i < 10500; i++) {
+		for(int i = 0; i < 100; i++) {
 			board = new Board(al.get(i));
 			System.out.println("index:" + i);
 			board.inputBoardInfo();
@@ -233,7 +233,14 @@ public class Kyokumen {
 		}
 		
 		System.out.println(al.size());
-		board = new Board(al.get(10000));
+		board = new Board(al.get(89));
+		board.inputBoardInfo();
+		System.out.println("------------------------------------"); 
+		
+		board.moveKoma(new NextMove(E_GYOKU, 1, 2, GOTE, 1, 1));
+		
+		board.inputBoardInfo();
+		
 		
 		/*
 		 * for(int i = 0; i < 100; i++) { board = new Board(al.get(i + 10000));
@@ -242,6 +249,7 @@ public class Kyokumen {
 		 * board.inputBoardInfo();
 		 * System.out.println("------------------------------------"); }
 		 */
+		 
 		/*
 		 * for(int i = 0; i < 100; i++) { board = new Board(al.get(i));
 		 * board.inputBoardInfo(); System.out.println("----------------"); }
