@@ -404,8 +404,10 @@ public class Kyokumen {
 			
 		}
 		System.out.println(state[al.indexOf("0/Kee/eee/eek/S/g")]);
-		System.out.println(state[al.indexOf("1/kee/eee/eeK/SG/")]);
+		System.out.println(state[al.indexOf("1/Kee/eee/eek/SG/")]);
 		System.out.println(state[al.indexOf("1/kee/eee/SGK//")]);
+		
+		
 		
 	}
 	/*
