@@ -1,6 +1,7 @@
 package shogi9x9;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Kyokumen {
 	//全局面を格納する可変長配列
@@ -240,7 +241,9 @@ public class Kyokumen {
 	
 	//同時に二つの駒から王手を受けている、双方の玉が王手を受けているなどの違法な局面を配列から削除する
 	public void removeIllegalBoard() {
-		
+		for(Iterator<String> iterator = al.iterator(); iterator.hasNext();) {
+			//
+		}
 	}
 	/*
 	 * public Board madeBoardFromIndex(String index) { Board ret; return ret;
