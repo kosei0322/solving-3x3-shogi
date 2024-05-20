@@ -1,6 +1,9 @@
 package shogi9x9;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class Board {
@@ -87,6 +90,18 @@ public class Board {
 	//局面を表す文字列を返す
 	public String getIndex() {
 		String ret = this.teban + "/" + board[0][0] + board[0][1] + board[0][2] + "/" + board[1][0] + board[1][1] + board[1][2] + "/" + board[2][0] + board[2][1] + board[2][2] + "/" ;
+		if(komadai.SENTE_MOTIGOMA.size() >= 2) {
+			if(komadai.SENTE_MOTIGOMA.get(0).equals(KIN)) {
+				komadai.SENTE_MOTIGOMA.set(0, GIN);
+				komadai.SENTE_MOTIGOMA.set(1, KIN);
+			}
+		}
+		if(komadai.GOTE_MOTIGOMA.size() >=2) {
+			if(komadai.GOTE_MOTIGOMA.get(0).equals(E_KIN)) {
+				komadai.GOTE_MOTIGOMA.set(0, E_GIN);
+				komadai.GOTE_MOTIGOMA.set(1, E_KIN);
+			}
+		}
 		for(int i = 0; i < komadai.SENTE_MOTIGOMA.size(); i++) {
 			ret = ret + komadai.SENTE_MOTIGOMA.get(i);
 		}
@@ -119,9 +134,9 @@ public class Board {
 		Piece p;
 		//先手の場合
 		if(teban.equals(SENTE)) {
-			//盤上の駒を動かす手
 			for(int i = 0; i < board.length; i++) {
 				for(int j = 0; j < board[i].length; j++) {
+					//盤上の駒を動かす手
 					if(getTebanFromType(board[i][j]).equals(SENTE)) {
 						p = new Piece(board[i][j], i, j);
 						//その駒の移動可能な座標を格納する変数
@@ -130,17 +145,20 @@ public class Board {
 						for(int l = 0; l < movableList_.size(); l++) {
 							movableList.add(movableList_.get(l));
 						}
+					//持ち駒にある駒を打つ場合	
+					}else if(board[i][j].equals(EMPTY)) {
+						for(int s = 0; s < komadai.SENTE_MOTIGOMA.size(); s++) {
+							movableList.add(new NextMove(komadai.SENTE_MOTIGOMA.get(s), j, i, SENTE, -1, -1));
+						}
 					}
+					
 				}
 			}
-			/*
-			 * for(int i = 0; i < movableList.size(); i++) { movableList.get(i).inputInfo();
-			 * System.out.println("------------------"); }
-			 */
 		}else if(teban.equals(GOTE)) {
-			//盤上の駒を動かす手
+			
 			for(int i = 0; i < board.length; i++) {
 				for(int j = 0; j < board[i].length; j++) {
+					//盤上の駒を動かす手
 					if(getTebanFromType(board[i][j]).equals(GOTE)) {
 						p = new Piece(board[i][j], i, j);
 						//その駒の移動可能な座標を格納する変数
@@ -148,6 +166,11 @@ public class Board {
 						movableList_ = p.getMovableList(this);
 						for(int l = 0; l < movableList_.size(); l++) {
 							movableList.add(movableList_.get(l));
+						}
+					//持ち駒を使う場合	
+					}else if(board[i][j].equals(EMPTY)) {
+						for(int s = 0; s < komadai.GOTE_MOTIGOMA.size(); s++) {
+							movableList.add(new NextMove(komadai.GOTE_MOTIGOMA.get(s), j, i, GOTE, -1, -1));
 						}
 					}
 				}
@@ -179,6 +202,10 @@ public class Board {
 			}
 		}
 		
+		
+		  
+		 
+		
 		return movableList;
 		
 	}
@@ -200,6 +227,14 @@ public class Board {
 					}
 					if(board[i][j].equals(GYOKU)) {
 						gyoku_ = new Piece(board[i][j], i, j);
+					}else if(board[i][j].equals(E_GYOKU)) {
+						Piece test = new Piece(E_GYOKU, i, j);
+						for(int s = 0; s < test.movableFileVector.length; s++) {
+							//玉が玉に王手されている場合trueを返す
+							if(isRange(i + test.movableRankVector[s]) && isRange(j + test.movableFileVector[s]) &&board[i + test.movableRankVector[s]][j + test.movableFileVector[s]].equals(GYOKU)) {
+								return true;
+							}
+						}
 					}
 				}
 			}
@@ -216,6 +251,14 @@ public class Board {
 					}
 					if(board[i][j].equals(E_GYOKU)) {
 						gyoku_ = new Piece(board[i][j], i, j);
+					}else if(board[i][j].equals(GYOKU)) {
+						Piece test = new Piece(GYOKU, i, j);
+						for(int s = 0; s < test.movableFileVector.length; s++) {
+							//玉が玉に王手されている場合trueを返す
+							if(isRange(i + test.movableRankVector[s]) && isRange(j + test.movableFileVector[s]) && board[i + test.movableRankVector[s]][j + test.movableFileVector[s]].equals(E_GYOKU)) {
+								return true;
+							}
+						}
 					}
 				}
 			}
