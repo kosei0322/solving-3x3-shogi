@@ -25,10 +25,16 @@ public class Komadai {
 	ArrayList<String> GOTE_MOTIGOMA = new ArrayList<String>();
 	
 	public void addtoSenteKomadai(String type) {
+		if(!Character.isUpperCase(type.toCharArray()[0])) {
+			type = String.valueOf(Character.toUpperCase(type.toCharArray()[0]));
+		}
 		SENTE_MOTIGOMA.add(type);
 	}
 	
 	public void addtoGoteKomadai(String type) {
+		if(Character.isUpperCase(type.toCharArray()[0])) {
+			type = String.valueOf(Character.toLowerCase(type.toCharArray()[0]));
+		}
 		GOTE_MOTIGOMA.add(type);
 	}
 	

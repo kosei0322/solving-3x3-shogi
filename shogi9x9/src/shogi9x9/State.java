@@ -5,6 +5,8 @@ public class State {
 		System.out.println("hel");
 		
 		  Kyokumen kyokumen = new Kyokumen(); kyokumen.generateKyokumen();
-		 
+		  kyokumen.removeIllegalBoard();
+		  kyokumen.findMateBoard(); 
+		  kyokumen.kaiseki();
 	}
 }
